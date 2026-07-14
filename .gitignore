@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+app/node_modules/
+
+# Production builds
+dist/
+app/dist/
+
+# Local envs / keys
+.env
+*.local
+.env.local
+
+# Editor files
+.vscode/
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

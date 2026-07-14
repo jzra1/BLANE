@@ -1,0 +1,17 @@
+# Supabase Configuration for BLANE project
+
+project_id = "blane-nutrition-engine"
+
+[api]
+port = 54321
+schemas = ["public"]
+
+[db]
+port = 54322
+
+[studio]
+port = 54323
+
+[auth]
+site_url = "http://localhost:5173"
+additional_redirect_urls = ["https://blane.netlify.app"]
