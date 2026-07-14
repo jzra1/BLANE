@@ -446,6 +446,13 @@ const switchToSignup = document.getElementById('switch-to-signup');
 const switchToLogin = document.getElementById('switch-to-login');
 const btnLogout = document.getElementById('btn-login');
 
+// Landing / Hero Page Selectors
+const landingContainer = document.getElementById('landing-container');
+const btnLandingEnter = document.getElementById('btn-landing-enter');
+const btnHeroStart = document.getElementById('btn-hero-start');
+const loginBackHome = document.getElementById('login-back-home');
+const signupBackHome = document.getElementById('signup-back-home');
+
 // Wizard Steps DOM Elements
 const wizardForm = document.getElementById('signup-wizard-form');
 const wizardSteps = document.querySelectorAll('.wizard-step');
@@ -540,6 +547,7 @@ btnWizardPrev.addEventListener('click', () => {
 
 // Auth entry to Dashboard
 function enterDashboard() {
+  landingContainer.style.display = 'none';
   authContainer.style.display = 'none';
   dashboardApp.style.display = 'block';
   calculateTargets();
@@ -645,11 +653,36 @@ btnLogout.addEventListener('click', (e) => {
   e.preventDefault();
   localStorage.removeItem('blane_current_user');
   dashboardApp.style.display = 'none';
-  authContainer.style.display = 'flex';
+  authContainer.style.display = 'none';
+  landingContainer.style.display = 'flex';
   loginForm.reset();
   wizardForm.reset();
   document.querySelectorAll('.preference-item').forEach(item => item.classList.remove('checked'));
 });
+
+// Landing / Hero Navigation Click Handlers
+function showAuthScreen(mode) {
+  landingContainer.style.display = 'none';
+  authContainer.style.display = 'flex';
+  if (mode === 'login') {
+    loginCard.style.display = 'block';
+    signupCard.style.display = 'none';
+  } else {
+    loginCard.style.display = 'none';
+    signupCard.style.display = 'block';
+  }
+}
+
+function showLandingScreen() {
+  authContainer.style.display = 'none';
+  dashboardApp.style.display = 'none';
+  landingContainer.style.display = 'flex';
+}
+
+btnLandingEnter.addEventListener('click', () => showAuthScreen('login'));
+btnHeroStart.addEventListener('click', () => showAuthScreen('signup'));
+loginBackHome.addEventListener('click', (e) => { e.preventDefault(); showLandingScreen(); });
+signupBackHome.addEventListener('click', (e) => { e.preventDefault(); showLandingScreen(); });
 
 // Event Listeners for Dashboard Changes
 metricsForm.addEventListener('submit', (e) => {

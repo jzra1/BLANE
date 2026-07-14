@@ -9,8 +9,122 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   </head>
   <body>
+    <!-- Hero / Landing Page Section -->
+    <div id="landing-container" class="landing-screen">
+      <!-- Navbar -->
+      <nav class="landing-nav">
+        <div class="logo-container">
+          <span class="logo-icon">🥗</span>
+          <h1 class="logo-text">BLANE</h1>
+          <span class="logo-badge">TSU CAPSTONE</span>
+        </div>
+        <button class="btn btn-primary" id="btn-landing-enter" style="padding: 8px 16px; font-size: 14px;">Launch App</button>
+      </nav>
+
+      <!-- Hero Header -->
+      <header class="hero-banner">
+        <div class="hero-content">
+          <span class="hero-tag">🧬 Biological Adaptive Nutrition Engine</span>
+          <h1 class="hero-title">Adaptive Nutrition Driven by Real-Time Biometrics & Local Food Availability</h1>
+          <p class="hero-subtitle">
+            BLANE is a clinical, context-aware nutrition management system tailored for the local Filipino environment. It calculates precise Mifflin-St Jeor daily targets, tracks local Tarlac City market stocks, and details meal decisions using Explainable AI (Gemini 2.5 Flash-Lite).
+          </p>
+          <div class="hero-actions">
+            <button class="btn btn-primary btn-hero-cta" id="btn-hero-start">Personalize Your Plan</button>
+            <a href="#features-section" class="btn btn-secondary" style="border-color: var(--color-border); color: var(--color-foreground);">Explore Features</a>
+          </div>
+        </div>
+        <div class="hero-graphic-card">
+          <!-- Mini mockup of the dashboard loop -->
+          <div class="mock-ui">
+            <div class="mock-header">
+              <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+              <span class="mock-title">BLANE Core Status</span>
+            </div>
+            <div class="mock-body">
+              <div class="mock-row"><span>🎯 Daily Calorie Target:</span> <strong>1,840 kcal</strong></div>
+              <div class="mock-row"><span>📊 Overall Health Score:</span> <strong style="color: var(--color-primary);">96% (Good)</strong></div>
+              <div class="mock-row"><span>🛒 Active Market Stock:</span> <strong style="color: var(--color-accent);">100% (Public Market)</strong></div>
+              <div class="mock-row"><span>🤖 Explainable AI:</span> <strong style="color: var(--color-primary);">🟢 Gemini Active</strong></div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Core Features Grid -->
+      <section id="features-section" class="features-grid-section">
+        <h2 class="section-title">The 9 Connected Pillars of BLANE</h2>
+        <p class="section-subtitle">A synchronized system linking your health conditions directly to local food logistics</p>
+        
+        <div class="features-container">
+          <div class="feature-card">
+            <div class="feat-icon">🔄</div>
+            <h3>Real-Time Body Feedback Loop</h3>
+            <p>Monitors daily weight, sleep, hydration, and active calories to dynamically adjust targets using the Mifflin-St Jeor equation.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feat-icon">📈</div>
+            <h3>Health Drift Detection</h3>
+            <p>Analyzes 7-day biometric trends to spot negative patterns, score overall wellness, and suggest preventive lifestyle choices.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feat-icon">⚖️</div>
+            <h3>Dynamic Portion Optimizer</h3>
+            <p>Automatically scales recipe portions (0.5x - 2.0x) to match exact caloric and macronutrient targets for your goal.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feat-icon">Map</div>
+            <h3>GeoMarket Ingredient Scanner</h3>
+            <p>Maps local Tarlac markets (Public Market & SM Supermarket) showing live item stocks and ingredient availability.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feat-icon">₱</div>
+            <h3>Price-Aware Meal Optimizer</h3>
+            <p>Checks recipe costs against your custom PHP budget limits and suggests cheap, high-nutrition ingredient substitutes.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feat-icon">🍂</div>
+            <h3>Seasonal Availability Engine</h3>
+            <p>Identifies in-season Filipino crops and alerts you to swap out-of-season items with local, native alternatives.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feat-icon">🤖</div>
+            <h3>AI-Powered Meal Explanation</h3>
+            <p>Leverages Gemini 2.5 Flash-Lite to output human-readable justifications explaining why each meal fits your criteria.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feat-icon">🛑</div>
+            <h3>Constraint-Based System</h3>
+            <p>Enforces food allergies (peanut, egg, dairy, seafood) and clinical diets (vegetarian, halal, diabetic, low sodium).</p>
+          </div>
+          <div class="feature-card">
+            <div class="feat-icon">🍳</div>
+            <h3>Recipe Recommendation</h3>
+            <p>Renders complete culinary guides with DOST-FNRI PhilFCT verified nutrient metrics and cooking guides.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Proponents / Research Footer -->
+      <section class="research-team-section">
+        <h3>Tarlac State University Capstone Research Team</h3>
+        <p>Developed in partial fulfillment of the requirements for BS in Information Technology (Web & Mobile Application Specialization)</p>
+        <div class="team-grid">
+          <div class="team-member"><strong>Ervine Kirby V. Argueza</strong><br>Proponent</div>
+          <div class="team-member"><strong>Xian Karlitos P. Calma</strong><br>Proponent</div>
+          <div class="team-member"><strong>John Carlo H. Dela Cruz</strong><br>Proponent</div>
+          <div class="team-member"><strong>John Edward F. Laxamana</strong><br>Proponent</div>
+        </div>
+      </section>
+
+      <!-- Landing Page Footer -->
+      <footer class="landing-footer">
+        <p>&copy; 2026 Biological Adaptive Nutrition Engine (BLANE). All rights reserved.</p>
+      </footer>
+    </div>
+
     <!-- Authentication & Onboarding Flow -->
-    <div id="auth-container" class="auth-screen">
+    <div id="auth-container" class="auth-screen" style="display: none;">
       
       <!-- Login Card -->
       <div id="login-card" class="auth-card">
@@ -36,6 +150,8 @@
           <span>Don't have an account? </span>
           <a href="#" id="switch-to-signup" style="color: var(--color-primary); font-weight: bold; text-decoration: none;">Sign Up</a>
         </div>
+
+        <a href="#" id="login-back-home" style="color: var(--color-foreground); opacity: 0.6; display: block; text-align: center; margin-top: var(--space-md); text-decoration: none; font-size: 13px;">← Back to Home</a>
       </div>
 
       <!-- Sign Up / Onboarding Wizard Card -->
@@ -167,6 +283,8 @@
           <span>Already have an account? </span>
           <a href="#" id="switch-to-login" style="color: var(--color-primary); font-weight: bold; text-decoration: none;">Log In</a>
         </div>
+
+        <a href="#" id="signup-back-home" style="color: var(--color-foreground); opacity: 0.6; display: block; text-align: center; margin-top: var(--space-md); text-decoration: none; font-size: 13px;">← Back to Home</a>
       </div>
 
     </div>
