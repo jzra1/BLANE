@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BLANE - Biological Adaptive Nutrition Engine</title>
+    <!-- Leaflet CSS for Map Rendering -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script type="module" crossorigin src="./assets/index-PGHhkicf.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Bpiyu_Pc.css">
+  </head>
+  <body>
+    <!-- Authentication & Onboarding Flow -->
+    <div id="auth-container" class="auth-screen">
+      
+      <!-- Login Card -->
+      <div id="login-card" class="auth-card">
+        <div style="text-align: center; margin-bottom: var(--space-md);">
+          <span style="font-size: 48px;">🥗</span>
+        </div>
+        <h2 class="auth-title">Welcome to BLANE</h2>
+        <p class="auth-subtitle">Biological Adaptive Nutrition Engine</p>
+        
+        <form id="login-form">
+          <div class="form-group">
+            <label for="login-email">Email Address</label>
+            <input type="email" id="login-email" class="form-input" placeholder="name@email.com" required />
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" class="form-input" placeholder="••••••••" required />
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px 0; margin-top: var(--space-sm);">Log In</button>
+        </form>
+        
+        <div style="text-align: center; margin-top: var(--space-lg); font-size: 14px;">
+          <span>Don't have an account? </span>
+          <a href="#" id="switch-to-signup" style="color: var(--color-primary); font-weight: bold; text-decoration: none;">Sign Up</a>
+        </div>
+      </div>
+
+      <!-- Sign Up / Onboarding Wizard Card -->
+      <div id="signup-card" class="auth-card" style="display: none;">
+        <h2 class="auth-title">Create Account</h2>
+        <p class="auth-subtitle">Let's personalize your nutrition engine</p>
+        
+        <!-- Step indicators -->
+        <div class="step-indicators">
+          <div class="step-dot active" data-step="1"></div>
+          <div class="step-dot" data-step="2"></div>
+          <div class="step-dot" data-step="3"></div>
+          <div class="step-dot" data-step="4"></div>
+        </div>
+
+        <form id="signup-wizard-form">
+          
+          <!-- Step 1: Account details -->
+          <div class="wizard-step active" data-step="1">
+            <div class="form-group">
+              <label for="signup-name">Full Name</label>
+              <input type="text" id="signup-name" class="form-input" placeholder="Juan Dela Cruz" required />
+            </div>
+            <div class="form-group">
+              <label for="signup-email">Email Address</label>
+              <input type="email" id="signup-email" class="form-input" placeholder="name@email.com" required />
+            </div>
+            <div class="form-group">
+              <label for="signup-password">Password</label>
+              <input type="password" id="signup-password" class="form-input" placeholder="••••••••" required />
+            </div>
+          </div>
+
+          <!-- Step 2: Biological Metrics (Mifflin-St Jeor Inputs) -->
+          <div class="wizard-step" data-step="2">
+            <div class="form-group">
+              <label for="signup-age">Age (years)</label>
+              <input type="number" id="signup-age" class="form-input" placeholder="e.g. 22" min="1" required />
+            </div>
+            <div class="form-group">
+              <label for="signup-gender">Gender</label>
+              <select id="signup-gender" class="form-input" style="appearance: none;" required>
+                <option value="" disabled selected>Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="signup-height">Height (cm)</label>
+              <input type="number" id="signup-height" class="form-input" placeholder="e.g. 170" min="50" required />
+            </div>
+            <div class="form-group">
+              <label for="signup-weight">Weight (kg)</label>
+              <input type="number" id="signup-weight" class="form-input" placeholder="e.g. 70" min="20" required />
+            </div>
+            <div class="form-group">
+              <label for="signup-activity">Activity Level</label>
+              <select id="signup-activity" class="form-input" required>
+                <option value="" disabled selected>Select Activity Level</option>
+                <option value="1.2">Sedentary (No Exercise)</option>
+                <option value="1.375">Lightly Active (Light Exercise 1-3d/wk)</option>
+                <option value="1.55">Moderately Active (Moderate Exercise 3-5d/wk)</option>
+                <option value="1.725">Very Active (Heavy Exercise 6-7d/wk)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Step 3: Dietary Preferences (Allergens & Diets) -->
+          <div class="wizard-step" data-step="3">
+            <h3 style="font-size: 16px; margin-bottom: var(--space-md); text-align: center; color: var(--color-primary);">Select Dietary Preferences & Restrictions</h3>
+            <div class="preference-grid">
+              <label class="preference-item">
+                <input type="checkbox" name="preferences" value="peanut-free" />
+                <span>Peanut-Free</span>
+              </label>
+              <label class="preference-item">
+                <input type="checkbox" name="preferences" value="seafood-free" />
+                <span>Seafood-Free</span>
+              </label>
+              <label class="preference-item">
+                <input type="checkbox" name="preferences" value="dairy-free" />
+                <span>Dairy-Free</span>
+              </label>
+              <label class="preference-item">
+                <input type="checkbox" name="preferences" value="egg-free" />
+                <span>Egg-Free</span>
+              </label>
+              <label class="preference-item">
+                <input type="checkbox" name="preferences" value="vegetarian" />
+                <span>Vegetarian</span>
+              </label>
+              <label class="preference-item">
+                <input type="checkbox" name="preferences" value="halal" />
+                <span>Halal</span>
+              </label>
+              <label class="preference-item">
+                <input type="checkbox" name="preferences" value="diabetic" />
+                <span>Diabetic-Friendly</span>
+              </label>
+              <label class="preference-item">
+                <input type="checkbox" name="preferences" value="hypertension" />
+                <span>Low Sodium</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Step 4: Budget Setting -->
+          <div class="wizard-step" data-step="4">
+            <div class="form-group">
+              <label for="signup-budget">Daily Food Budget (PHP)</label>
+              <input type="number" id="signup-budget" class="form-input" placeholder="e.g. 300" min="50" required />
+            </div>
+            <div style="text-align: center; margin-top: var(--space-lg); padding: var(--space-md); border: 1px solid var(--color-border); border-radius: var(--radius-md); background-color: var(--color-muted);">
+              <h4 style="color: var(--color-primary); margin-bottom: var(--space-xs);">Onboarding Complete!</h4>
+              <p style="font-size: 13px; opacity: 0.8;">Click Finish to synchronize your body metrics and access your personalized meal dashboard.</p>
+            </div>
+          </div>
+
+          <!-- Wizard Actions -->
+          <div class="wizard-buttons">
+            <button type="button" id="btn-wizard-prev" class="btn btn-secondary" style="display: none; flex-grow: 1;">Back</button>
+            <button type="button" id="btn-wizard-next" class="btn btn-primary" style="flex-grow: 1;">Next</button>
+            <button type="submit" id="btn-wizard-submit" class="btn btn-primary" style="display: none; flex-grow: 1;">Finish & Log In</button>
+          </div>
+
+        </form>
+
+        <div style="text-align: center; margin-top: var(--space-lg); font-size: 14px;">
+          <span>Already have an account? </span>
+          <a href="#" id="switch-to-login" style="color: var(--color-primary); font-weight: bold; text-decoration: none;">Log In</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Main Dashboard Application (Hidden by Default) -->
+    <div id="app" style="display: none;">
+      <!-- Header -->
+      <header class="app-header">
+        <div class="logo-container">
+          <span class="logo-icon">🥗</span>
+          <h1 class="logo-text">BLANE</h1>
+          <span class="logo-badge">TSU CAPSTONE</span>
+        </div>
+        <div class="user-profile">
+          <span id="lbl-user-name">John Doe</span>
+          <button class="btn btn-secondary" id="btn-login" style="padding: 6px 12px; font-size: 14px;">Logout</button>
+        </div>
+      </header>
+
+      <!-- Dashboard Grid -->
+      <div class="dashboard-container">
+        
+        <!-- Sidebar: Body Metric Feedback & Trends -->
+        <aside class="sidebar">
+          
+          <!-- Real-Time Metrics & Logs -->
+          <section class="card">
+            <h2 class="card-title">Body Feedback Loop <span>🔄</span></h2>
+            <form id="metrics-form" style="display: flex; flex-direction: column; gap: var(--space-sm);">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <label for="input-weight" style="font-size: 14px; font-weight: 500;">Weight (kg):</label>
+                <input type="number" id="input-weight" value="70" step="0.1" style="width: 80px; padding: 4px; border: 1px solid var(--color-border); border-radius: var(--radius-sm);" />
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <label for="input-active-cal" style="font-size: 14px; font-weight: 500;">Active Calories (kcal):</label>
+                <input type="number" id="input-active-cal" value="300" style="width: 80px; padding: 4px; border: 1px solid var(--color-border); border-radius: var(--radius-sm);" />
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <label for="input-sleep" style="font-size: 14px; font-weight: 500;">Sleep (hours):</label>
+                <input type="number" id="input-sleep" value="7.5" step="0.1" style="width: 80px; padding: 4px; border: 1px solid var(--color-border); border-radius: var(--radius-sm);" />
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <label for="input-water" style="font-size: 14px; font-weight: 500;">Water (ml):</label>
+                <input type="number" id="input-water" value="2000" step="250" style="width: 80px; padding: 4px; border: 1px solid var(--color-border); border-radius: var(--radius-sm);" />
+              </div>
+              <button type="submit" class="btn btn-primary" style="margin-top: var(--space-xs); padding: 8px 0; width: 100%;">Update Metrics</button>
+            </form>
+          </section>
+
+          <!-- Current Calculations -->
+          <section class="card">
+            <h2 class="card-title">Targets (Mifflin-St Jeor) <span>📊</span></h2>
+            <div class="metric-row">
+              <span>BMI Status:</span>
+              <span class="metric-value" id="val-bmi">22.9 (Normal)</span>
+            </div>
+            <div class="metric-row">
+              <span>TDEE:</span>
+              <span class="metric-value" id="val-tdee">2,150 kcal</span>
+            </div>
+            <div class="metric-row">
+              <span>Daily Target:</span>
+              <span class="metric-value" id="val-daily-target" style="color: var(--color-accent);">1,900 kcal</span>
+            </div>
+          </section>
+
+          <!-- Health Drift -->
+          <section class="card">
+            <h2 class="card-title">Health Drift (7d) <span>📈</span></h2>
+            <div style="text-align: center; margin-bottom: var(--space-sm);">
+              <div style="font-size: 36px; font-weight: 800; font-family: var(--font-heading); color: var(--color-primary);" id="val-health-score">88</div>
+              <div style="font-size: 12px; color: var(--color-foreground); opacity: 0.8;">Overall Health Score (0-100)</div>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 14px;">
+              <span>7d Weight Trend:</span>
+              <span style="color: var(--color-primary); font-weight: bold;">Stable</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 14px; margin-top: var(--space-xs);">
+              <span>7d Calorie Margin:</span>
+              <span style="color: var(--color-accent); font-weight: bold;">-250 kcal/day</span>
+            </div>
+          </section>
+
+          <!-- Budget Config -->
+          <section class="card">
+            <h2 class="card-title">Budget Settings <span>₱</span></h2>
+            <div style="display: flex; flex-direction: column; gap: var(--space-sm);">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <label for="input-budget" style="font-size: 14px; font-weight: 500;">Daily Budget (PHP):</label>
+                <input type="number" id="input-budget" value="300" style="width: 80px; padding: 4px; border: 1px solid var(--color-border); border-radius: var(--radius-sm);" />
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; font-size: 14px;">
+                <span>Est. Spend (Today):</span>
+                <span id="val-spend" style="font-weight: bold; color: var(--color-primary);">₱245.00</span>
+              </div>
+            </div>
+          </section>
+        </aside>
+
+        <!-- Main Content Area: Recipes, Map, & AI Explanations -->
+        <main class="main-content">
+          
+          <!-- Tabbed Sections -->
+          <nav class="tab-navigation">
+            <button class="tab-btn active" id="tab-recommendations">Meal Recommendations</button>
+            <button class="tab-btn" id="tab-markets">GeoMarket Scanner</button>
+            <button class="tab-btn" id="tab-recipes">PhilFCT Recipes</button>
+            <button class="tab-btn" id="tab-admin">Admin Portal</button>
+          </nav>
+
+          <!-- Tab Content 1: Recommendations (Active) -->
+          <div id="content-recommendations" class="tab-content">
+            <div class="section-header">
+              <h2>Tailored Meal Recommendations</h2>
+              <span id="lbl-active-market" style="font-size: 13px; font-weight: bold; background-color: var(--color-muted); color: var(--color-primary); padding: 4px 10px; border-radius: var(--radius-sm); border: 1px solid var(--color-border);">Active Market: Public Market (1.00x)</span>
+              <div style="display: flex; gap: var(--space-sm); align-items: center;">
+                <span style="font-size: 14px;">Portion Scale:</span>
+                <select id="select-portion-scale" style="padding: 4px; border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
+                  <option value="0.8">0.8x (Weight Loss)</option>
+                  <option value="1.0" selected>1.0x (Normal)</option>
+                  <option value="1.2">1.2x (Calorie Surplus)</option>
+                  <option value="1.5">1.5x (Bulking)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- AI Explanation Alert -->
+            <div class="card" style="border-left: 4px solid var(--color-primary); background-color: var(--color-muted); margin-bottom: var(--space-md); padding: var(--space-md);">
+              <div style="display: flex; gap: var(--space-sm);">
+                <span style="font-size: 20px;">🤖</span>
+                <div>
+                  <h4 style="margin: 0 0 var(--space-xs) 0; font-family: var(--font-heading); color: var(--color-primary);">Explainable AI recommendation Rationale</h4>
+                  <p id="ai-rationale" style="font-size: 14px;">Analyzing your BMI (22.9), active calories (300 kcal), and remaining daily target. Recommending local, high-protein Filipino dishes that fit your ₱300 budget. Portions scaled to 1.0x to hit exactly 1,900 kcal today.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recommended Meals Grid -->
+            <div id="recommended-meals-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-md);">
+              <!-- Will be rendered dynamically via JS -->
+            </div>
+          </div>
+
+          <!-- Tab Content 2: GeoMarket Scanner (Hidden by default) -->
+          <div id="content-markets" class="tab-content" style="display: none;">
+            <div class="section-header">
+              <h2>GeoMarket Ingredient Scanner</h2>
+              <span>Showing markets in Tarlac City</span>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 300px; gap: var(--space-md); margin-bottom: var(--space-md);">
+              <div id="map-container">
+                <!-- Leaflet map will mount here -->
+              </div>
+              <div class="card" style="display: flex; flex-direction: column; gap: var(--space-sm); overflow-y: auto; max-height: 400px;">
+                <h3 style="font-size: 16px; color: var(--color-primary);">Nearby Markets</h3>
+                
+                <div class="market-item" id="market-public-card" style="padding: var(--space-sm); border: 2px solid var(--color-primary); border-radius: var(--radius-sm); cursor: pointer; background-color: var(--color-muted);">
+                  <h4 style="font-size: 14px; margin-bottom: 2px;">Tarlac City Public Market</h4>
+                  <p style="font-size: 12px; opacity: 0.8;">F. Tañedo St, Tarlac City</p>
+                  <p style="font-size: 12px; color: var(--color-primary); font-weight: bold; margin-top: 4px;">🟢 100% ingredients in stock</p>
+                  <button class="btn btn-primary btn-set-market" data-market="public" style="width: 100%; padding: 4px; font-size: 11px; margin-top: var(--space-xs);">Activate Market (1.00x)</button>
+                </div>
+
+                <div class="market-item" id="market-sm-card" style="padding: var(--space-sm); border: 1px solid var(--color-border); border-radius: var(--radius-sm); cursor: pointer;">
+                  <h4 style="font-size: 14px; margin-bottom: 2px;">SM City Tarlac Supermarket</h4>
+                  <p style="font-size: 12px; opacity: 0.8;">McArthur Highway, Tarlac City</p>
+                  <p style="font-size: 12px; color: var(--color-accent); font-weight: bold; margin-top: 4px;">🟡 85% ingredients in stock</p>
+                  <button class="btn btn-secondary btn-set-market" data-market="sm" style="width: 100%; padding: 4px; font-size: 11px; margin-top: var(--space-xs);">Activate Market (1.20x)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab Content 3: PhilFCT Recipes (Hidden by default) -->
+          <div id="content-recipes" class="tab-content" style="display: none;">
+            <div class="section-header">
+              <h2>PhilFCT Food Library</h2>
+              <span>Official DOST-FNRI Nutrient Reference Values</span>
+            </div>
+            
+            <div class="card" style="margin-bottom: var(--space-md);">
+              <input type="text" id="recipe-search" placeholder="Search 1,540+ PhilFCT foods (e.g. rice, corn, milk)..." style="width: 100%; padding: var(--space-sm); border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 16px; background-color: var(--color-muted); color: var(--color-foreground);" />
+            </div>
+
+            <div id="recipe-results-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-md); max-height: 500px; overflow-y: auto; padding: var(--space-xs);">
+              <!-- Search results will render here -->
+            </div>
+          </div>
+
+          <!-- Tab Content 4: Admin Portal (Hidden by default) -->
+          <div id="content-admin" class="tab-content" style="display: none;">
+            <div class="section-header">
+              <h2>Admin & Management Portal</h2>
+              <span>Authorized personnel only</span>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-lg);">
+              <div class="card">
+                <h3 style="color: var(--color-primary); margin-bottom: var(--space-sm);">System Administration</h3>
+                <p style="font-size: 14px; margin-bottom: var(--space-md);">
+                  This portal allows system administrators (TSU Capstone Proponents) to manage food item inventories, toggle seasonality grids, and audit API connection statuses.
+                </p>
+                <div style="font-size: 14px; display: flex; flex-direction: column; gap: var(--space-xs); border-top: 1px solid var(--color-border); padding-top: var(--space-md);">
+                  <div><strong>Database Host:</strong> Supabase PostgreSQL (Local Emulator)</div>
+                  <div><strong>Gemini API Status:</strong> <span style="color: var(--color-primary); font-weight: bold;">🟢 Connected (2.5 Flash-Lite)</span></div>
+                </div>
+              </div>
+              
+              <div class="card">
+                <h3 style="color: var(--color-primary); margin-bottom: var(--space-sm);">Dynamic Pricing Control</h3>
+                <form id="admin-pricing-form" style="display: flex; flex-direction: column; gap: var(--space-sm);">
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <label for="admin-public-mult" style="font-size: 14px; font-weight: 500;">Public Market Multiplier:</label>
+                    <input type="number" id="admin-public-mult" value="1.0" step="0.05" style="width: 80px; padding: 4px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background-color: var(--color-muted); color: var(--color-foreground);" />
+                  </div>
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <label for="admin-sm-mult" style="font-size: 14px; font-weight: 500;">SM Supermarket Multiplier:</label>
+                    <input type="number" id="admin-sm-mult" value="1.2" step="0.05" style="width: 80px; padding: 4px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background-color: var(--color-muted); color: var(--color-foreground);" />
+                  </div>
+                  <button type="submit" class="btn btn-primary" style="padding: 8px 0; width: 100%; margin-top: 8px;">Apply Global Markups</button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+        </main>
+      </div>
+
+      <!-- Footer -->
+      <footer class="app-footer">
+        <p>&copy; 2026 Biological Adaptive Nutrition Engine (BLANE). All rights reserved.</p>
+      </footer>
+    </div>
+    
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  </body>
+</html>
