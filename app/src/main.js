@@ -787,6 +787,7 @@ adminPricingForm.addEventListener('submit', (e) => {
 });
 
 // Auto-login active session on page reload
+// Auto-login active session on page reload or show landing page on first load
 const currentUserEmail = localStorage.getItem('blane_current_user');
 if (currentUserEmail) {
   const users = JSON.parse(localStorage.getItem('blane_users') || '[]');
@@ -800,7 +801,11 @@ if (currentUserEmail) {
       userProfileGreeting.textContent = user.name;
     }
     enterDashboard();
+  } else {
+    showLandingScreen();
   }
+} else {
+  showLandingScreen();
 }
 
 console.log('BLANE App Initialized successfully.');
