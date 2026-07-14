@@ -550,6 +550,7 @@ function enterDashboard() {
   landingContainer.style.display = 'none';
   authContainer.style.display = 'none';
   dashboardApp.style.display = 'block';
+  btnLandingEnter.textContent = "Go to Dashboard";
   calculateTargets();
   renderRecipes();
   // Trigger map invalidate size since Leaflet maps need sizing refresh once visible
@@ -655,6 +656,7 @@ btnLogout.addEventListener('click', (e) => {
   dashboardApp.style.display = 'none';
   authContainer.style.display = 'none';
   landingContainer.style.display = 'flex';
+  btnLandingEnter.textContent = "Launch App";
   loginForm.reset();
   wizardForm.reset();
   document.querySelectorAll('.preference-item').forEach(item => item.classList.remove('checked'));
@@ -677,12 +679,37 @@ function showLandingScreen() {
   authContainer.style.display = 'none';
   dashboardApp.style.display = 'none';
   landingContainer.style.display = 'flex';
+  if (localStorage.getItem('blane_current_user')) {
+    btnLandingEnter.textContent = "Go to Dashboard";
+  } else {
+    btnLandingEnter.textContent = "Launch App";
+  }
 }
 
-btnLandingEnter.addEventListener('click', () => showAuthScreen('login'));
-btnHeroStart.addEventListener('click', () => showAuthScreen('signup'));
+btnLandingEnter.addEventListener('click', () => {
+  if (localStorage.getItem('blane_current_user')) {
+    enterDashboard();
+  } else {
+    showAuthScreen('login');
+  }
+});
+btnHeroStart.addEventListener('click', () => {
+  if (localStorage.getItem('blane_current_user')) {
+    enterDashboard();
+  } else {
+    showAuthScreen('signup');
+  }
+});
 loginBackHome.addEventListener('click', (e) => { e.preventDefault(); showLandingScreen(); });
 signupBackHome.addEventListener('click', (e) => { e.preventDefault(); showLandingScreen(); });
+
+// Dashboard Logo Home click handler
+const logoHomeBtn = document.getElementById('logo-home-btn');
+if (logoHomeBtn) {
+  logoHomeBtn.addEventListener('click', () => {
+    showLandingScreen();
+  });
+}
 
 // Event Listeners for Dashboard Changes
 metricsForm.addEventListener('submit', (e) => {
