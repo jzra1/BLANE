@@ -40,6 +40,7 @@ const valPortionMultipliers = document.querySelectorAll('.val-portion-multiplier
 const valSpend = document.getElementById('val-spend');
 const aiRationale = document.getElementById('ai-rationale');
 const lblActiveMarket = document.getElementById('lbl-active-market');
+const inputBudget = document.getElementById('input-budget');
 
 // Market state variables
 let currentMarket = 'public';
@@ -258,6 +259,15 @@ function calculateTargets() {
   
   const totalSpend = breakfastPrice + lunchPrice + dinnerPrice;
   valSpend.textContent = `₱${totalSpend.toFixed(2)}`;
+
+  // Dynamic budget check to avoid miscalculation and visual overruns
+  const dailyBudget = parseFloat(inputBudget.value) || 300;
+  if (totalSpend > dailyBudget) {
+    valSpend.style.color = 'var(--color-accent)'; // warning color (red/orange)
+    aiRationale.textContent += ` ⚠️ Warning: Your estimated daily spend (₱${totalSpend.toFixed(2)}) exceeds your daily food budget limit (₱${dailyBudget.toFixed(2)}).`;
+  } else {
+    valSpend.style.color = 'var(--color-primary)'; // default primary color (green)
+  }
   
   const mealsGrid = document.getElementById('recommended-meals-grid');
   if (mealsGrid) {
@@ -648,6 +658,10 @@ metricsForm.addEventListener('submit', (e) => {
 });
 
 selectPortionScale.addEventListener('change', () => {
+  calculateTargets();
+});
+
+inputBudget.addEventListener('input', () => {
   calculateTargets();
 });
 
